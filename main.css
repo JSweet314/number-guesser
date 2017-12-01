@@ -1,0 +1,9 @@
+header,
+footer {
+  background-color: #ababab;
+  color: #ffffff;
+}
+
+li {
+  display: inline;
+}
