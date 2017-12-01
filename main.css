@@ -1,9 +1,31 @@
-header,
-footer {
-  background-color: #ababab;
-  color: #ffffff;
+body {
+  font-family: arial;
+  /*font-weight: normal;*/
 }
 
-li {
-  display: inline;
+header {
+  background-color: #404041;
+  color: #ed458b;
+  text-align: center;
+}
+
+span {
+  font-weight: 100;
+  color: #E6E7E8;
+}
+
+form {
+  text-align: center;
+}
+
+#guess {
+  width: 30%;
+  min-width: 300px;
+  height: 2em;
+}
+
+.roundedGray {
+  border-radius: 50px;
+  background-color: #D1D2D3;
+  color: #FDFDFD;
 }
