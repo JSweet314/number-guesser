@@ -39,14 +39,27 @@ function describeGuess(){
   document.querySelector('.appFeed').innerHTML = description;
 }
 
+function presentGuess() {
+  document.querySelector('.guess').innerHTML = guess;
+  document.querySelector('.guess').style.visibility = 'visible';
+}
+
+function describeGuess(){
+  document.querySelector('.appFeed').style.visibility = 'visible';
+  document.querySelector('.appFeed').innerHTML = description;
+}
+
 
 function presentGuess() {
   document.querySelector('.guess').innerHTML = guess;
   document.querySelector('.guess').style.visibility = 'visible';
 }
 
-// document.querySelector('#guess').value;
-
+function submitGuess() {
+  numberGuesser();
+  presentGuess();
+  describeGuess();
+}
 
 function clearInput() {
   document.querySelector('#guess').innerHTML = '';
@@ -70,3 +83,7 @@ function reset() {
 //   }
 // }
 
+// document.querySelector('#guess')
+// document.querySelector('.guess')
+// document.querySelector('.appFeed')
+// document.querySelector('#guess')
