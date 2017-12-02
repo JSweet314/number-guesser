@@ -9,19 +9,20 @@
     <h1>Number <span>Guesser</span></h1>
   </header>
   <section class="feature">
-    <form action="">
-      <input type="text" placeholder="Enter your guess" name="guess" id="guess" value="10">
+    <form action="" id="game">
+      <input type="text" placeholder="Enter your guess" name="guess" id="guess" >
       <p>
-        <input type="submit" value="Guess" class="roundedGray textfunc" >
-        <input type="submit" value="Clear" class="roundedGray textfunc">
+        <input type="submit" value="Guess" class="roundedGray" id="submit">
+        <input type="submit" value="Clear" class="roundedGray" id="clear">
       </p>
-      <h2>Your last guess was</h2>
-      <p class="guess">"0"</p>
-      <h2 class="appFeed">"Describe Guess Here"</h2>
+      <h2 id="const">Your last guess was</h2>
+      <p id="attempt">"0"</p>
+      <h2 id="feedBack">"Describe Guess Here"</h2>
       <p>
         <input type="submit" value="Reset" class="roundedGray wideButton" id="reset">
       </p>
     </form>
   </section>
+  <script type="text/javascript" src="number-guess.js"></script>
 </body>
 </html>

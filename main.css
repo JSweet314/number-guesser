@@ -1,7 +1,5 @@
 html {
   font-family: "Open Sans", sans-serif;
-  
-  /*font-weight: normal;*/
 }
 
 header {
@@ -53,4 +51,10 @@ h2 {
 
 .wideButton {
   width: 30%;
+}
+
+#attempt,
+#feedBack,
+#const {
+  visibility: hidden;
 }
