@@ -47,6 +47,7 @@ function presentGuess() {
   document.getElementById('attempt').innerHTML = guess;
   document.getElementById('attempt').style.visibility = 'visible';
   document.getElementById('const').style.visibility = 'visible';
+  document.querySelector('#reset').style.visibility = 'visible';
 }
 
 function describeGuess(){
@@ -77,8 +78,8 @@ function reset(event) {
   document.getElementById('attempt').style.visibility = 'hidden';
   document.getElementById('feedBack').style.visibility = 'hidden';
   document.getElementById('const').style.visibility = 'hidden';
+  document.querySelector('#reset').style.visibility = 'hidden';
   clearInput(event);
-  
 }
 
 function validateGuess(x) {

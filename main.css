@@ -55,6 +55,7 @@ h2 {
 
 #attempt,
 #feedBack,
-#const {
+#const,
+#reset {
   visibility: hidden;
 }
