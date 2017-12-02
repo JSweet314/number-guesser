@@ -3,9 +3,9 @@ var numberOfGuesses = 0;
 var ans = 0;
 var description = '';
 
-var sub = document.getElementById('submit');
-var cl = document.getElementById('clear');
-var res = document.getElementById('reset')
+var sub = document.querySelector('#submit');
+var cl = document.querySelector('#clearText');
+var res = document.querySelector('#reset')
 
 sub.addEventListener('click', submitGuess)
 cl.addEventListener('click', clearInput)
@@ -38,22 +38,32 @@ function generateNumber() {
 
 function getGuess(){
   console.log('obtained guess from user');
-  guess = parseInt(document.getElementById('guess').value);
+  guess = parseInt(document.querySelector('#guess').value);
   return guess;
+}
+
+function visElement(element){
+  console.log('visElement function ran');
+  document.querySelector(element).style.visibility = 'visible';
+}
+
+function invisElement(element){
+  console.log('invisElement function ran');
+  document.querySelector(element).style.visibility = 'hidden';
 }
 
 function presentGuess() {
   console.log('guess presented');
-  document.getElementById('attempt').innerHTML = guess;
-  document.getElementById('attempt').style.visibility = 'visible';
-  document.getElementById('const').style.visibility = 'visible';
-  document.querySelector('#reset').style.visibility = 'visible';
+  document.querySelector('#attempt').innerHTML = guess;
+  visElement('#attempt');
+  visElement('#const');
+  visElement('#reset');
 }
 
 function describeGuess(){
   console.log('guess described')
-  document.getElementById('feedBack').style.visibility = 'visible';
-  document.getElementById('feedBack').innerHTML = description;
+  document.querySelector('#feedBack').style.visibility = 'visible';
+  document.querySelector('#feedBack').innerHTML = description;
 }
 
 function submitGuess(event) {
@@ -68,17 +78,17 @@ function submitGuess(event) {
 function clearInput(event) {
   console.log('clear button pressed, text box = \'\'');
   event.preventDefault();
-  document.getElementById('guess').value = '';
+  document.querySelector('#guess').value = '';
 }
 
 function reset(event) {
   console.log('reset button');
   event.preventDefault();
   numberOfGuesses = 0;
-  document.getElementById('attempt').style.visibility = 'hidden';
-  document.getElementById('feedBack').style.visibility = 'hidden';
-  document.getElementById('const').style.visibility = 'hidden';
-  document.querySelector('#reset').style.visibility = 'hidden';
+  invisElement('#attempt');
+  invisElement('#feedBack');
+  invisElement('#const');
+  invisElement('#reset');
   clearInput(event);
 }
 
@@ -89,6 +99,5 @@ function validateGuess(x) {
     console.log('Please enter a whole number between 1 and 100.'); 
   } else {
     submitGuess();
-  }
-  
+  } 
 }
