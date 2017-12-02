@@ -11,6 +11,11 @@ function generateNumber() {
   }
 }
 
+function submitGuess() {
+  numberGuesser();
+  presentGuess();
+  describeGuess();
+}
 
 function numberGuesser(){
   ans = generateNumber();
@@ -27,6 +32,16 @@ function numberGuesser(){
   } else {
     return description = 'That is too high';
   }
+}
+
+function describeGuess(){
+  document.querySelector('.appFeed').style.visibility = 'visible';
+  document.querySelector('.appFeed').innerHTML = description;
+}
+
+function presentGuess() {
+  document.querySelector('.guess').innerHTML = guess;
+  document.querySelector('.guess').style.visibility = 'visible';
 }
 
 function describeGuess(){
@@ -72,4 +87,3 @@ function reset() {
 // document.querySelector('.guess')
 // document.querySelector('.appFeed')
 // document.querySelector('#guess')
-

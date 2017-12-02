@@ -10,15 +10,17 @@
   </header>
   <section class="feature">
     <form action="">
-      <input type="text" placeholder="Enter your guess" name="guess" id="guess">
+      <input type="text" placeholder="Enter your guess" name="guess" id="guess" value="10">
       <p>
-        <input type="submit" value="Guess" class="roundedGray">
-        <input type="submit" value="Clear" class="roundedGray">
+        <input type="submit" value="Guess" class="roundedGray textfunc" >
+        <input type="submit" value="Clear" class="roundedGray textfunc">
       </p>
       <h2>Your last guess was</h2>
-      <p>"0"</p>
-      <h2>"Describe Guess Here"</h2>
-      <input type="submit" value="Reset" class="roundedGray">
+      <p class="guess">"0"</p>
+      <h2 class="appFeed">"Describe Guess Here"</h2>
+      <p>
+        <input type="submit" value="Reset" class="roundedGray wideButton" id="reset">
+      </p>
     </form>
   </section>
 </body>
