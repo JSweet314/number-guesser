@@ -1,5 +1,6 @@
-body {
-  font-family: arial;
+html {
+  font-family: "Open Sans", sans-serif;
+  
   /*font-weight: normal;*/
 }
 
@@ -10,12 +11,31 @@ header {
 }
 
 span {
-  font-weight: 100;
+  font-weight: 300;
   color: #E6E7E8;
 }
 
 form {
   text-align: center;
+}
+
+h2 {
+  color: #404041;
+  font-weight: 300;
+}
+
+/*p {
+  color: #eb008b;
+  font-size: 40px;
+  width: 400px;
+  border: 0;
+  padding: 0;
+  margin: 0 auto;
+}*/
+
+.roundedGray:hover {
+  background-color: #eb008b;
+  color: #ffffff;
 }
 
 #guess {
@@ -26,6 +46,11 @@ form {
 
 .roundedGray {
   border-radius: 50px;
-  background-color: #D1D2D3;
-  color: #FDFDFD;
+  background-color: #d0d2d3;
+  color: #ffffff;
+  font-size: 30px;
 }   
+
+.wideButton {
+  width: 30%;
+}
