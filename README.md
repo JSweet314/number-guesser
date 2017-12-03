@@ -2,10 +2,11 @@
 ## Overview
 Build a game where the user guesses a number between 1 and 100.
 Phase 4 is optional. If you execute phase 4, create a separate branch in Git for that work for evaluation (using Git is an extra challenge – investigate how to initialize a Git repo and make a branch! We’ll go over how to do this in class in a few days, so this is a great time to investigate on your own).
-Phase One: Basic Requirements
+
+## Phase One: Basic Requirements
 The application should have the following user interface components:
 
-## Zero State:
+Zero State:
 An input field for guessing the number
 A button for submitting a guess
 A button for clearing the input field
