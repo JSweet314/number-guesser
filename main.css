@@ -31,9 +31,23 @@ h2 {
   margin: 0 auto;
 }*/
 
-.roundedGray:hover {
+.hover .buttonEnabled:hover {
   background-color: #eb008b;
   color: #ffffff;
+}
+
+.buttonDisabled {
+  background-color: #d0d2d3;
+  color: #ffffff;
+  border-radius: 50px;
+  font-size: 30px;
+}
+
+.buttonEnabled {
+  background-color: #929497;
+  color: #ffffff;
+  border-radius: 50px;
+  font-size: 30px;
 }
 
 #guess {
@@ -41,14 +55,7 @@ h2 {
   min-width: 300px;
   height: 2em;
 }
-
-.roundedGray {
-  border-radius: 50px;
-  background-color: #d0d2d3;
-  color: #ffffff;
-  font-size: 30px;
-}   
-
+   
 .wideButton {
   width: 30%;
 }
