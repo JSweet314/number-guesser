@@ -30,6 +30,12 @@ h2 {
   padding: 0;
   margin: 0 auto;
 }*/
+.buttonEnabled {
+  background-color: #929497;
+  color: #ffffff;
+  border-radius: 50px;
+  font-size: 30px;
+}
 
 .hover .buttonEnabled:hover {
   background-color: #eb008b;
@@ -38,13 +44,6 @@ h2 {
 
 .buttonDisabled {
   background-color: #d0d2d3;
-  color: #ffffff;
-  border-radius: 50px;
-  font-size: 30px;
-}
-
-.buttonEnabled {
-  background-color: #929497;
   color: #ffffff;
   border-radius: 50px;
   font-size: 30px;
