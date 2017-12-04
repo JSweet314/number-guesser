@@ -13,6 +13,8 @@
 
 // Research keyword 'this', error user promtp options for numbers submitted outside of preset range.
 
+// Issue: if user inputs number in text (which activates buttons), they can they delete it manually and buttons are still active. Need to find way to revert to inactive status if input is deleted (without useing 'clear' button).
+
 var guess = 0;
 var numberOfGuesses = 0;
 var ans = 0;
@@ -32,20 +34,15 @@ res.addEventListener('click', reset);
 function enableButtons() {
   //function for eventListener 'input' in text box.
   if (!isNaN(this.value)){ 
-    // document.querySelector('#submit').disabled = false;
     toggleButtonOn('#submit');
-    // document.querySelector('#clearText').disabled = false;
     toggleButtonOn('#clearText');
     changeAttribute('#game', 'class', 'hover');
-    // changeAttribute('#submit', 'class', 'buttonEnabled');
-    // changeAttribute('#clearText', 'class', 'buttonEnabled');
   } else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
     console.log('value isNaN');
-    // changeAttrubute('#submit', 'class', 'buttonDisabled');
     toggleButtonOff('#submit')
-    // changeAttribute('#clearText', 'class', 'buttonDisabled');
     toggleButtonOff('#clearText')
   }
+  return true;
 }
 
 var userInput = document.querySelector('#guess');
@@ -54,16 +51,13 @@ userInput.addEventListener('input', enableButtons, false);
 function gameOver(event){
   if (description === 'BOOM!'){
     toggleButtonOff('#submit');
-    // changeAttribute('#submit', 'class', 'buttonDisabled');
-    // document.querySelector('#submit').disabled = true;
+    toggleButtonOff('#clearText');
+    console.log('gameOver disabled submit and clear buttons');
     changeText('#const', 'BOOM!');
-    // document.querySelector('#const').innerText = 'BOOM!';
     changeHTML('#feedBack', winCase);
-    // document.querySelector('#feedBack').innerHTML = 'You Win!<br />Click Reset to<br /> play again.';
     document.querySelector('#guess').disabled = true;
   }
 } 
-
 
 function changeAttribute(selector, attribute, value) { //function to change element attributes easier
   var toBeChanged = document.querySelector(selector);
@@ -71,12 +65,12 @@ function changeAttribute(selector, attribute, value) { //function to change elem
 }
 
 function addClass(selector, value){
-  toBeChanged = document.querySelector(selector);
+  var toBeChanged = document.querySelector(selector);
   toBeChanged.classList.add(value);
 }
 
 function removeClass(selector, value){
-  toBeChanged = document.querySelector(selector);
+  var toBeChanged = document.querySelector(selector);
   toBeChanged.classList.remove(value);
 }
 
@@ -95,12 +89,19 @@ function toggleButtonOff(buttonId){
 }
 
 function submitGuess(event) {
+  console.log('..........................');
   console.log('default form settings prevented');
   console.log('submit guess function');
   numberGuesser();
   event.preventDefault();
   toggleButtonOff('#submit');
   document.querySelector('#guess').disabled = true;
+}
+
+function outOfRange(){
+  description = "You must submit a number between " + document.querySelector(
+    '#guess').min + " and " + document.querySelector('#guess').max + ".";
+  alert('Did we not explain the rules? Clear your guess and see the prompt inside the text box.');
 }
 
 function numberGuesser(){
@@ -111,9 +112,7 @@ function numberGuesser(){
   console.log('guess = ' + guess);
   console.log('ans = ' + ans);
   if ((guess > document.querySelector('#guess').max)||(guess < document.querySelector('#guess').min)){
-    description = "You must submit a number between " + document.querySelector(
-      '#guess').min + " and " + document.querySelector('#guess').max + ".";
-    alert('Did we not explain the rules? Clear your guess and see the prompt inside the text box.');
+    outOfRange();
   } else if (guess === ans){
     description = 'BOOM!';
   } else if (guess < ans) {
@@ -123,12 +122,7 @@ function numberGuesser(){
   }
   describeGuess();
   if (description === 'BOOM!'){
-    changeAttribute('#submit', 'class', 'buttonDisabled');
-    document.querySelector('#submit').disabled = true;
-    console.log('submit button disabled');
-    changeAttribute('#clearText', 'class', 'buttonDisabled');
-    document.querySelector('#clearText').disabled = true;
-    console.log('clear button disabled');
+    gameOver();
   }
   return description;
 }
@@ -148,14 +142,10 @@ function getGuess(){
   return guess;
 }
 
-
 function presentGuess() {
   console.log('guess presented');
   changeText('#attempt', guess)
-  // document.querySelector('#attempt').innerText = guess;
-  visElement('#attempt');
-  visElement('#const');
-  visElement('#reset');
+  visElements(['#attempt', '#const', '#reset']);
 }
 
 function changeText(selector, text){
@@ -168,46 +158,51 @@ function changeHTML(selector, text){
 
 function describeGuess(){
   console.log('guess described');
-  visElement('#feedBack');
+  visElements(['#feedBack']);
   changeText('#feedBack', description);
   presentGuess();
 }
 
 function clearInput(event) {
   event.preventDefault();
+  console.log('..........................');
+  console.log('clearInput() called')
   console.log('Default form settings prevented');
   console.log('text box set to \'\'');
   document.querySelector('#guess').value = '';
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
   document.querySelector('#guess').disabled = false;
-  // document.querySelector('#clearText').disabled = true;
-  // document.querySelector('#submit').disabled = true;
-  // document.querySelector('#submit').setAttribute('class', 'buttonDisabled');
-  // document.querySelector('#clearText').setAttribute('class', 'buttonDisabled')
 }
 
 function reset(event) {
-  console.log('reset button');
+  console.log('..........................');
+  console.log('reset() called');
   numberOfGuesses = 0;
-  invisElement('#attempt');
-  invisElement('#feedBack');
-  invisElement('#const');
-  invisElement('#reset');
+  invisElements(['#attempt', '#feedBack', '#const', '#reset'])
   clearInput(event);
   changeText('#const', 'Your last guess was');
   document.querySelector('#guess').disabled = false;
 }
 
-// function validateGuess(x) {
-//   if (isNaN(x)) {
-//     console.log('Please guess a number');
-//   } else if (x > 100 || x < 1 || Number.isInteger(x) == false){
-//     console.log('Please enter a whole number between 1 and 100.'); 
-//   } else {
-//     submitGuess();
-//   } 
-// }
+
+function visElements(elArray){
+  var test = 'vis Elements: ';
+  for (i=0; i < elArray.length; i++){
+    document.querySelector(elArray[i]).style.visibility = 'visible';
+    test += elArray[i] + ' ';
+  }
+  console.log(test);
+}
+
+function invisElements(elArray){
+  var test = 'invis Elements: ';
+  for (i=0; i < elArray.length; i++){
+    document.querySelector(elArray[i]).style.visibility = 'hidden';
+    test += elArray[i] + ' ';
+  }
+  console.log(test);
+}
 
 function visElement(element){
   console.log('visElement: ' + element);
