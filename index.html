@@ -9,20 +9,21 @@
     <h1>Number <span>Guesser</span></h1>
   </header>
   <section class="feature">
-    <form action="" id="game">
-      <input type="text" placeholder="Enter your guess" name="guess" id="guess" >
+    <form action="" id="game" >
+      <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" maxlength="3"> <!--number 'text box' - target min and max atributes to change range. -->
       <p>
-        <input type="submit" value="Guess" class="roundedGray" id="submit">
-        <input type="submit" value="Clear" class="roundedGray" id="clearText">
+        <input type="submit" value="Guess" class="roundedButton buttonDisabled" id="submit" disabled>
+        <input type="submit" value="Clear" class="roundedButton buttonDisabled" id="clearText" disabled>
       </p>
       <h2 id="const">Your last guess was</h2>
-      <p id="attempt">"0"</p>
+      <p id="attempt">'0'</p>
       <h2 id="feedBack">"Describe Guess Here"</h2>
       <p>
-        <input type="submit" value="Reset" class="roundedGray wideButton" id="reset">
+        <input type="submit" value="Reset" class="roundedButton buttonEnabled wideButton hover" id="reset">
       </p>
     </form>
   </section>
   <script type="text/javascript" src="number-guess.js"></script>
+  <!-- <script type="text/javascript" src="ng-unit-test.js"></script> -->
 </body>
 </html>

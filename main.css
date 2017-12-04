@@ -22,17 +22,35 @@ h2 {
   font-weight: 300;
 }
 
-/*p {
+p {
+  display: inline-block;
+  overflow: scroll;
   color: #eb008b;
-  font-size: 40px;
-  width: 400px;
+  font-size: 170px;
+  width: 100%;
   border: 0;
   padding: 0;
   margin: 0 auto;
-}*/
+  font-weight: 100;
+}
 
-.roundedGray:hover {
+.roundedButton{
+  border-radius: 50px;
+  font-size: 30px;
+}
+
+.buttonEnabled {
+  background-color: #929497;
+  color: #ffffff;
+}
+
+.hover .buttonEnabled:hover {
   background-color: #eb008b;
+  color: #ffffff;
+}
+
+.buttonDisabled {
+  background-color: #d0d2d3;
   color: #ffffff;
 }
 
@@ -42,15 +60,9 @@ h2 {
   height: 2em;
 }
 
-.roundedGray {
-  border-radius: 50px;
-  background-color: #d0d2d3;
-  color: #ffffff;
-  font-size: 30px;
-}   
-
 .wideButton {
   width: 30%;
+  min-width: 300px;
 }
 
 #attempt,
