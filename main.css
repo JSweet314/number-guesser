@@ -33,6 +33,10 @@ p {
   margin: 0 auto;
   font-weight: 100;
 }
+.roundedButton{
+  border-radius: 50px;
+  font-size: 30px;
+}
 
 .buttonEnabled {
   background-color: #929497;
