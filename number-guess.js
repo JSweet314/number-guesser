@@ -13,8 +13,6 @@
 
 // Research keyword 'this', error user promtp options for numbers submitted outside of preset range.
 
-// Issue: if user inputs number in text (which activates buttons), they can they delete it manually and buttons are still active. Need to find way to revert to inactive status if input is deleted (without useing 'clear' button).
-
 var guess = 0;
 var numberOfGuesses = 0;
 var ans = 0;
@@ -27,28 +25,34 @@ var res = document.querySelector('#reset');
 
 
 sub.addEventListener('click', submitGuess);
-sub.addEventListener('click', gameOver);
 cl.addEventListener('click', clearInput);
 res.addEventListener('click', reset);
 
-function enableButtons() {
+function readyPlay() {
   //function for eventListener 'input' in text box.
   if (!isNaN(this.value)){ 
     toggleButtonOn('#submit');
     toggleButtonOn('#clearText');
     changeAttribute('#game', 'class', 'hover');
   } else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
-    console.log('value isNaN');
     toggleButtonOff('#submit')
     toggleButtonOff('#clearText')
+    console.log('value isNaN');
+  }
+  while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
+    toggleButtonOff('#submit')
+    toggleButtonOff('#clearText')
+    document.querySelector('#guess').disabled = false;
+    console.log('value isNaN');
+    break;  
   }
   return true;
 }
 
 var userInput = document.querySelector('#guess');
-userInput.addEventListener('input', enableButtons, false);
+userInput.addEventListener('input', readyPlay, false);
 
-function gameOver(event){
+function gameOver(){
   if (description === 'BOOM!'){
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
@@ -89,13 +93,14 @@ function toggleButtonOff(buttonId){
 }
 
 function submitGuess(event) {
-  console.log('..........................');
-  console.log('default form settings prevented');
-  console.log('submit guess function');
+  changeText('#const', 'Your last guess was');
   numberGuesser();
   event.preventDefault();
   toggleButtonOff('#submit');
   document.querySelector('#guess').disabled = true;
+  console.log('..........................');
+  console.log('default form settings prevented');
+  console.log('submit guess function');
 }
 
 function outOfRange(){
@@ -115,15 +120,13 @@ function numberGuesser(){
     outOfRange();
   } else if (guess === ans){
     description = 'BOOM!';
-  } else if (guess < ans) {
+  } else if (guess < ans){
     description = 'That is too low'
-  } else {
+  } else if (guess > ans){
     description = 'That is too high';
   }
   describeGuess();
-  if (description === 'BOOM!'){
-    gameOver();
-  }
+  gameOver();
   return description;
 }
 
@@ -144,7 +147,13 @@ function getGuess(){
 
 function presentGuess() {
   console.log('guess presented');
-  changeText('#attempt', guess)
+  if (isNaN(guess)){
+    changeText('#attempt', '');
+    changeText('#const', 'WHOA!');
+    changeText('#feedBack', 'Your must input a whole number!');
+  } else {
+    changeText('#attempt', guess)
+  }
   visElements(['#attempt', '#const', '#reset']);
 }
 
@@ -165,26 +174,25 @@ function describeGuess(){
 
 function clearInput(event) {
   event.preventDefault();
-  console.log('..........................');
-  console.log('clearInput() called')
-  console.log('Default form settings prevented');
-  console.log('text box set to \'\'');
   document.querySelector('#guess').value = '';
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
   document.querySelector('#guess').disabled = false;
+  console.log('..........................');
+  console.log('clearInput() called')
+  console.log('Default form settings prevented');
+  console.log('text box set to \'\'');
 }
 
 function reset(event) {
-  console.log('..........................');
-  console.log('reset() called');
   numberOfGuesses = 0;
   invisElements(['#attempt', '#feedBack', '#const', '#reset'])
   clearInput(event);
   changeText('#const', 'Your last guess was');
   document.querySelector('#guess').disabled = false;
+  console.log('..........................');
+  console.log('reset() called');
 }
-
 
 function visElements(elArray){
   var test = 'vis Elements: ';
