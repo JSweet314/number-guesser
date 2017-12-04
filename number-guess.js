@@ -18,6 +18,7 @@ var numberOfGuesses = 0;
 var ans = 0;
 var description = '';
 var winCase = 'You Win!<br />Click Reset to<br /> play again.';
+var guesses = [];
 
 var sub = document.querySelector('#submit');
 var cl = document.querySelector('#clearText');
@@ -104,9 +105,17 @@ function submitGuess(event) {
 }
 
 function outOfRange(){
-  description = "You must submit a number between " + document.querySelector(
-    '#guess').min + " and " + document.querySelector('#guess').max + ".";
+  description = "You must submit a number between " + document.querySelector('#guess').min + " and " + document.querySelector('#guess').max + ".";
   alert('Did we not explain the rules? Clear your guess and see the prompt inside the text box.');
+}
+
+function repeatedGuess(){
+  for (i=0; i < guesses.length; i++){
+    if (guess == guesses[i]){
+      description = 'You already guessed that...';
+    }
+  }
+  guesses.push(guess);
 }
 
 function numberGuesser(){
@@ -125,6 +134,7 @@ function numberGuesser(){
   } else if (guess > ans){
     description = 'That is too high';
   }
+  repeatedGuess();
   describeGuess();
   gameOver();
   return description;
@@ -186,6 +196,7 @@ function clearInput(event) {
 
 function reset(event) {
   numberOfGuesses = 0;
+  guesses = [];
   invisElements(['#attempt', '#feedBack', '#const', '#reset'])
   clearInput(event);
   changeText('#const', 'Your last guess was');
