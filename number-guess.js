@@ -1,11 +1,11 @@
 // PRODUCTION LOG
 // Phase Two: More Better
 
-// The input field should only accept numerical entries, within the defined min and max range - IN PROGRESS - INPUT FIELD ONLY ACCEPTS NUMERICAL INPUT (changed type from 'submit' to 'number') BUT USER IS STILL ABLE TO MANUALLY TYPE NUMBER OUTSIDE OF PRESET MIN/MAX.
+// The input field should only accept numerical entries, within the defined min and max range - DONE - INPUT FIELD ONLY ACCEPTS NUMERICAL INPUT (changed type from 'submit' to 'number') BUT USER IS STILL ABLE TO MANUALLY TYPE NUMBER OUTSIDE OF MIN/MAX SET IN HTML.
 
-// The application should display an error message if the guess is not a number (e.g. parseInt() returns NaN). - IN PROGRESS - USER IS UNABLE TO SUBMIT EMPTY FIELD OR NaN - ISSUE STILL EXISTS THAT USER CAN INPUT NUMBER OUTSIDE PRESET MIN/MAX.
+// The application should display an error message if the guess is not a number (e.g. parseInt() returns NaN). - DONR - USER IS UNABLE TO SUBMIT EMPTY FIELD OR NaN.
 
-// The application should display an error if the guess is outside of the range of possible answers. - IN PROGRESS - IF USER INPUT IS OUTSIDE OF PRESET RANGE, DESCRIPTION VARIABLE UPDATED TO PRINT ERROR MESSAGE TO SCREEN 
+// The application should display an error if the guess is outside of the range of possible answers. - DONE - user is alert(ed) and description changed to instruct user to input guess between .max and .min. 
 
 // The clear button should be disabled if there is nothing to clear.  - DONE - IF USER DOES NOT PROVIDE INPUT TO NUMBER FIELD OR CLEAR/RESET BUTTON IS PRESSED AND TEXT FIELD IS CLEARED, CLEAR BUTTON IS DISABLED.
 

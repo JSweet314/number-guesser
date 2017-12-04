@@ -23,9 +23,11 @@ h2 {
 }
 
 p {
+  display: inline-block;
+  overflow: scroll;
   color: #eb008b;
   font-size: 170px;
-  width: 400px;
+  width: 100%;
   border: 0;
   padding: 0;
   margin: 0 auto;
