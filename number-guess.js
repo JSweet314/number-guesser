@@ -20,11 +20,12 @@ var description = '';
 
 var sub = document.querySelector('#submit');
 var cl = document.querySelector('#clearText');
-var res = document.querySelector('#reset')
+var res = document.querySelector('#reset');
 
-sub.addEventListener('click', submitGuess)
-cl.addEventListener('click', clearInput)
-res.addEventListener('click', reset)
+sub.addEventListener('click', submitGuess);
+sub.addEventListener('click', gameOver);
+cl.addEventListener('click', clearInput);
+res.addEventListener('click', reset);
 
 // below - eventListener for user input into text area
 var userInput = document.querySelector('#guess');
@@ -47,10 +48,16 @@ function enableButtons() {
   }
 }
 
-if (description === 'BOOM!'){
-  changeAttribute('#submit', 'class', 'buttonDisabled');
-  document.querySelector('#submit').disabled = true;
-}
+
+function gameOver(event){
+  if (description === 'BOOM!'){
+    changeAttribute('#submit', 'class', 'buttonDisabled');
+    document.querySelector('#submit').disabled = true;
+    document.querySelector('#const').innerHTML = 'BOOM!';
+    document.querySelector('#feedBack').innerHTML = 'You Win!<br />Click Reset to<br /> play again.';
+  }
+} 
+
 
 function changeAttribute(selector, attribute, value) { //function to change element attributes easier
   toBeChanged = document.querySelector(selector);
@@ -73,7 +80,8 @@ function numberGuesser(){
   console.log('ans = ' + ans);
   if ((guess > document.querySelector('#guess').max)||(guess < document.querySelector('#guess').min)){
     description = "You must submit a number between " + document.querySelector(
-    '#guess').min + " and " + document.querySelector('#guess').max + ".";
+      '#guess').min + " and " + document.querySelector('#guess').max + ".";
+    alert('Did we not explain the rules? Clear your guess and see the prompt inside the text box.');
   } else if (guess === ans){
     description = 'BOOM!';
   } else if (guess < ans) {
@@ -83,12 +91,12 @@ function numberGuesser(){
   }
   describeGuess();
   if (description === 'BOOM!'){
-  changeAttribute('#submit', 'class', 'buttonDisabled');
-  document.querySelector('#submit').disabled = true;
-  console.log('submit button disabled');
-  changeAttribute('#clearText', 'class', 'buttonDisabled');
-  document.querySelector('#clearText').disabled = true;
-  console.log('clear button disabled');
+    changeAttribute('#submit', 'class', 'buttonDisabled');
+    document.querySelector('#submit').disabled = true;
+    console.log('submit button disabled');
+    changeAttribute('#clearText', 'class', 'buttonDisabled');
+    document.querySelector('#clearText').disabled = true;
+    console.log('clear button disabled');
   }
   return description;
 }
@@ -143,6 +151,7 @@ function reset(event) {
   invisElement('#const');
   invisElement('#reset');
   clearInput(event);
+  document.querySelector('#const').innerHTML = 'Your last guess was';
 }
 
 function validateGuess(x) {

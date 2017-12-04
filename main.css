@@ -22,14 +22,16 @@ h2 {
   font-weight: 300;
 }
 
-/*p {
+p {
   color: #eb008b;
-  font-size: 40px;
+  font-size: 170px;
   width: 400px;
   border: 0;
   padding: 0;
   margin: 0 auto;
-}*/
+  font-weight: 100;
+}
+
 .buttonEnabled {
   background-color: #929497;
   color: #ffffff;
