@@ -10,17 +10,13 @@
   </header>
   <section class="feature">
     <form action="" id="game" >
-      <p>
-        <label for="minGuess">Min:</label>
-        <input type="number" name="minGuess" id="minGuess" value="1">
-        <label for="maxGuess">Max:</label>
-        <input type="number" name="maxGuess" id="maxGuess" value="100">
-        <input type="submit" value="Update Min/Max" id="subMinMax">
+      <p class="prompt">Select a Number Between <label for="minGuess" contenteditable="true"></label><input type="number" name="minGuess" id="minGuess" value="1" width="20px"> and <label for="maxGuess"></label><input type="number" name="maxGuess" id="maxGuess" value="100" width="20px">.<br>
+        <button type="submit" class="roundedButton buttonEnabled" value="Update Min/Max" id="subMinMax">Set Min/Max</button>
       </p>
-      <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" maxlength="3"> <!--number 'text box' - target min and max atributes to change range. -->
+      <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" disabled> <!--number 'text box' - target min and max atributes to change range. -->
       <p>
         <input type="submit" value="Guess" class="roundedButton buttonDisabled" id="submit" disabled>
-        <input type="submit" value="Clear" class="roundedButton buttonDisabled" id="clearText" disabled>
+        <button type="submit" value="Clear" class="roundedButton buttonDisabled" id="clearText" disabled>Clear</button>
       </p>
       <h2 id="const">Your last guess was</h2>
       <p id="attempt">'0'</p>
@@ -30,7 +26,7 @@
       </p>
     </form>
   </section>
-  <script type="text/javascript" src="number-guess.js"></script>
+  <script type="text/javascript" src="javascript/number-guess.js"></script>
   <!-- <script type="text/javascript" src="ng-unit-test.js"></script> -->
 </body>
 </html>

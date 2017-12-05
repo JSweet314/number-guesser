@@ -6,7 +6,7 @@
 //    Appropriate UI is incorporated such that user understands what is happening.
 // (Pro-tip: You’ll need to adjust the input fields to accept the new minimum and maximum numbers.)
 
-// Research keyword 'this', error user promtp options for numbers submitted outside of preset range.
+// Research keyword 'this', error user-prompt options for numbers submitted outside of preset range.
 
 //ERROR - hitting enter after submitting guess runs updateMin and updateMax...
 
@@ -27,6 +27,29 @@ sub.addEventListener('click', submitGuess);
 cl.addEventListener('click', clearInput);
 res.addEventListener('click', reset);
 
+var minChange = document.querySelector('#minGuess');
+var maxChange = document.querySelector('#maxGuess');
+var guess = document.querySelector('#guess'); 
+
+minChange.onkeypress = changeWidth;
+maxChange.onkeypress = changeWidth;
+
+minChange.onkeydown = restrictNegatives;
+maxChange.onkeydown = restrictNegatives;
+guess.onkeydown = restrictNegatives;
+ //adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well. 
+ function restrictNegatives(event){
+  if(!((event.keyCode > 95 && event.keyCode < 106)
+    || (event.keyCode > 47 && event.keyCode < 58) 
+    || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13)) {
+    return false;
+}
+}
+
+function changeWidth(event){
+  this.style.width = ((this.value.length + 1) * 9) + 'px';
+}
+
 function readyPlay() {
   //function for eventListener 'input' in text box.
   if (!isNaN(this.value)){ 
@@ -38,12 +61,20 @@ function readyPlay() {
     toggleButtonOff('#clearText')
     console.log('value isNaN');
   }
-  while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
-    toggleButtonOff('#submit')
-    toggleButtonOff('#clearText')
+  while (this.value == ''){//disables buttons if user deletes entire guess before hitting submit.
+    toggleButtonOff('#submit');
+    toggleButtonOff('#clearText');
     document.querySelector('#guess').disabled = false;
     console.log('value isNaN');
     break;  
+  }
+  while (this.value < userMin || this.value > userMax){ // prevents guess out of range. 
+    toggleButtonOff('#submit');
+    break;
+  }
+  while (userMin > userMax){
+    toggleButtonOff('#submit');
+    break;
   }
   return true;
 }
@@ -96,7 +127,10 @@ function submitGuess(event) {
   numberGuesser();
   event.preventDefault();
   toggleButtonOff('#submit');
+  toggleButtonOff('#subMinMax');
   document.querySelector('#guess').disabled = true;
+  document.querySelector('#minGuess').disabled = true;
+  document.querySelector('#maxGuess').disabled = true;
   console.log('..........................');
   console.log('default form settings prevented');
   console.log('submit guess function');
@@ -198,7 +232,10 @@ function reset(event) {
   invisElements(['#attempt', '#feedBack', '#const', '#reset'])
   clearInput(event);
   changeText('#const', 'Your last guess was');
-  document.querySelector('#guess').disabled = false;
+  document.querySelector('#guess').disabled = true;
+  document.querySelector('#minGuess').disabled = false;
+  document.querySelector('#maxGuess').disabled = false;
+  toggleButtonOn('#subMinMax');
   console.log('..........................');
   console.log('reset() called');
 }
@@ -231,6 +268,26 @@ function invisElement(element){
   document.querySelector(element).style.visibility = 'hidden';
 }
 
+// var submitMin = document.querySelector('#minGuess');
+
+// submitMin.onBlur = subMin;
+
+// function subMin(){
+//   getMin();
+//   userInput.min = userMin;
+//   console.log('....user input min')
+// }
+
+// var submitMax = document.querySelector('#maxGuess');
+
+// submitMax.onBlur = subMax;
+
+// function subMax(){
+//   getMax();
+//   userInput.max = userMax;
+//   console.log('....user input max')
+// }
+
 //update min/max inputs
 //find a way to add event listener that doesn't run below functions when clicking buttons other than 'update min/max'.
 
@@ -243,23 +300,37 @@ function getMin(){
   return userMin;
 }
 
+function getMax(){
+  userMax = parseInt(document.querySelector('#maxGuess').value);
+  return userMax;
+}
+
 function updateMin(){
   getMin();
   userInput.min = userMin;
   document.querySelector('#maxGuess').min = userMin;
   console.log('updateMin() called');
+  return userMin;
 }
 
 function updateMax(){
-  userMax = parseInt(document.querySelector('#maxGuess').value);
-  userInput.max = userMax;
-  console.log('updateMax() called');
+  if (document.selectQuery > getMax()){
+    userInput.max = userMin;
+    userInput.min = userMax;
+    console.log('userMin > userMax')
+    return userMax;
+  } else {
+    userInput.max = userMax;
+    console.log('updateMax() called');
+  }
+  return userMax;
 }
 
 function updateMinMax(event){
   event.preventDefault();
   // reset(event);
-  updateMin();
   updateMax();
+  updateMin();
+  document.querySelector('#guess').disabled = false;
   document.querySelector('#guess').placeholder = 'Guess a number between ' + userMin + ' and ' + userMax + '.';
 }
