@@ -173,8 +173,8 @@ function numberGuesser(){
 }
 
 function generateNumber() {
-  console.log('random number generated');
   if (numberOfGuesses === 0) {
+    console.log('random number generated');
     return ans = Math.floor((Math.random()*(userMax-userMin+1))+userMin);
   } else {
     return ans;
