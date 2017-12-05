@@ -10,6 +10,13 @@
   </header>
   <section class="feature">
     <form action="" id="game" >
+      <p>
+        <label for="minGuess">Min:</label>
+        <input type="number" name="minGuess" id="minGuess" value="1">
+        <label for="maxGuess">Max:</label>
+        <input type="number" name="maxGuess" id="maxGuess" value="100">
+        <input type="submit" value="Update Min/Max" id="subMinMax">
+      </p>
       <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" maxlength="3"> <!--number 'text box' - target min and max atributes to change range. -->
       <p>
         <input type="submit" value="Guess" class="roundedButton buttonDisabled" id="submit" disabled>

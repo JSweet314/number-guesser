@@ -1,17 +1,14 @@
 // PRODUCTION LOG
-// Phase Two: More Better
-
-// The input field should only accept numerical entries, within the defined min and max range - DONE - INPUT FIELD ONLY ACCEPTS NUMERICAL INPUT (changed type from 'submit' to 'number') BUT USER IS STILL ABLE TO MANUALLY TYPE NUMBER OUTSIDE OF MIN/MAX SET IN HTML.
-
-// The application should display an error message if the guess is not a number (e.g. parseInt() returns NaN). - DONE - USER IS UNABLE TO SUBMIT EMPTY FIELD OR NaN.
-
-// The application should display an error if the guess is outside of the range of possible answers. - DONE - user is alert(ed) and description changed to instruct user to input guess between .max and .min. 
-
-// The clear button should be disabled if there is nothing to clear.  - DONE - IF USER DOES NOT PROVIDE INPUT TO NUMBER FIELD OR CLEAR/RESET BUTTON IS PRESSED AND TEXT FIELD IS CLEARED, CLEAR BUTTON IS DISABLED.
-
-// The reset button should be disabled if there is nothing to reset. - DONE - RESET BUTTON VISIBILILITY PROPERTY SET TO HIDDEN UNTIL GUESS IS MADE AND AFTER RESET BUTTON IS CLICKED
+// Add additional inputs that allow the user to specify the minimum/maximum range.
+// Upon successful win, user’s range is updated:
+//    Every time the user wins a round increase the maximum number by 10.
+//    Every time the user wins a round decrease the minimum number by 10.
+//    Appropriate UI is incorporated such that user understands what is happening.
+// (Pro-tip: You’ll need to adjust the input fields to accept the new minimum and maximum numbers.)
 
 // Research keyword 'this', error user promtp options for numbers submitted outside of preset range.
+
+//ERROR - hitting enter after submitting guess runs updateMin and updateMax...
 
 var guess = 0;
 var numberOfGuesses = 0;
@@ -19,11 +16,12 @@ var ans = 0;
 var description = '';
 var winCase = 'You Win!<br />Click Reset to<br /> play again.';
 var guesses = [];
+var userMin = 1;
+var userMax = 100;
 
 var sub = document.querySelector('#submit');
 var cl = document.querySelector('#clearText');
 var res = document.querySelector('#reset');
-
 
 sub.addEventListener('click', submitGuess);
 cl.addEventListener('click', clearInput);
@@ -143,15 +141,15 @@ function numberGuesser(){
 function generateNumber() {
   console.log('random number generated');
   if (numberOfGuesses === 0) {
-    return ans = Math.floor((Math.random()*100)+1);
+    return ans = Math.floor((Math.random()*(userMax-userMin+1))+userMin);
   } else {
     return ans;
   }
 }
 
 function getGuess(){
-  console.log('obtained guess from user');
   guess = parseInt(document.querySelector('#guess').value);
+  console.log('obtained guess from user');
   return guess;
 }
 
@@ -231,4 +229,37 @@ function visElement(element){
 function invisElement(element){
   console.log('invisElement: ' + element);
   document.querySelector(element).style.visibility = 'hidden';
+}
+
+//update min/max inputs
+//find a way to add event listener that doesn't run below functions when clicking buttons other than 'update min/max'.
+
+var submitMinMax = document.querySelector('#subMinMax');
+
+submitMinMax.addEventListener('click', updateMinMax, false);
+
+function getMin(){
+  userMin = parseInt(document.querySelector('#minGuess').value);
+  return userMin;
+}
+
+function updateMin(){
+  getMin();
+  userInput.min = userMin;
+  document.querySelector('#maxGuess').min = userMin;
+  console.log('updateMin() called');
+}
+
+function updateMax(){
+  userMax = parseInt(document.querySelector('#maxGuess').value);
+  userInput.max = userMax;
+  console.log('updateMax() called');
+}
+
+function updateMinMax(event){
+  event.preventDefault();
+  // reset(event);
+  updateMin();
+  updateMax();
+  document.querySelector('#guess').placeholder = 'Guess a number between ' + userMin + ' and ' + userMax + '.';
 }
