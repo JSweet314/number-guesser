@@ -27,6 +27,22 @@ sub.addEventListener('click', submitGuess);
 cl.addEventListener('click', clearInput);
 res.addEventListener('click', reset);
 
+var minChange = document.querySelector('#minGuess');
+var maxChange = document.querySelector('#maxGuess');
+var guess = document.querySelector('#guess'); 
+
+minChange.onkeydown = restrictNegatives;
+maxChange.onkeydown = restrictNegatives;
+guess.onkeydown = restrictNegatives;
+ //adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well. 
+function restrictNegatives(event){
+    if(!((event.keyCode > 95 && event.keyCode < 106)
+      || (event.keyCode > 47 && event.keyCode < 58) 
+      || event.keyCode == 8)) {
+        return false;
+    }
+}
+
 function readyPlay() {
   //function for eventListener 'input' in text box.
   if (!isNaN(this.value)){ 
@@ -38,12 +54,20 @@ function readyPlay() {
     toggleButtonOff('#clearText')
     console.log('value isNaN');
   }
-  while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
-    toggleButtonOff('#submit')
-    toggleButtonOff('#clearText')
+  while (this.value == ''){//disables buttons if user deletes entire guess before hitting submit.
+    toggleButtonOff('#submit');
+    toggleButtonOff('#clearText');
     document.querySelector('#guess').disabled = false;
     console.log('value isNaN');
     break;  
+  }
+  while (this.value < userMin || this.value > userMax){ // prevents guess out of range. 
+    toggleButtonOff('#submit');
+    break;
+  }
+  while (userMin > userMax){
+    toggleButtonOff('#submit');
+    break;
   }
   return true;
 }
@@ -230,6 +254,7 @@ function invisElement(element){
   console.log('invisElement: ' + element);
   document.querySelector(element).style.visibility = 'hidden';
 }
+
 
 //update min/max inputs
 //find a way to add event listener that doesn't run below functions when clicking buttons other than 'update min/max'.
