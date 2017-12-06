@@ -15,8 +15,6 @@ var settings = document.querySelector('#settings');
 
 var guess = document.querySelector('#guess');
 
-
-
 guess.onkeydown = restrictNegatives;
 
 guess.addEventListener('click', selectInput);
@@ -145,7 +143,8 @@ function clearInput(event) {
   document.querySelector('#guess').value = '';
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
-  guess.disabled = false;
+  disabledElements(['#guess'], false);
+  // guess.disabled = false;  see line above
   invisElements(['#const', '#attempt', '#feedBack']);
   guess.focus();
   console.log('..........................');
@@ -161,11 +160,12 @@ res.addEventListener('click', reset);
 function reset(event) {
   numberOfGuesses = 0;
   guesses = [];
-  invisElements(['#attempt', '#feedBack', '#const', '#reset', '#guess', '#clearText', '#submit'])
+  invisElements(['#attempt', '#feedBack', '#const', '#reset', '#guess', '#clearText', '#submit']);
   visElements(['#subMinMax', '#settings']);
   clearInput(event);
   changeText('#const', 'Your last guess was');
-  document.querySelector('#guess').disabled = true;
+  disabledElements(['#guess'], true);
+  // document.querySelector('#guess').disabled = true; see line above
   disabledElements(['#minGuess', '#maxGuess'], false);
   toggleButtonOn('#subMinMax');
   res.value = 'Reset';
