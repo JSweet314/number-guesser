@@ -6,6 +6,13 @@ header {
   background-color: #404041;
   color: #ed458b;
   text-align: center;
+  height: 102px;
+}
+
+header h1 {
+  position: relative;
+  top: 30px;
+  font-size: 40px;
 }
 
 span {
@@ -43,6 +50,7 @@ p {
   border-radius: 50px;
   font-size: 30px;
   margin-top:20px;
+  width: 196px;
 }
 
 .buttonEnabled {
@@ -61,12 +69,19 @@ p {
 }
 
 #guess {
-  width: 30%;
+  width: 428px;
   min-width: 300px;
   height: 2em;
+  position: relative;
+  right: 18px
 }
 
-.wideButton {
+#clearText {
+  position: relative;
+  left: 19px;
+}
+
+#reset {
   width: 30%;
   min-width: 300px;
 }
@@ -82,11 +97,10 @@ p {
   margin-bottom: 16px;
 }
 
-/*.prompt {
-  height: 30px;
-  padding-top: 10px;
+.prompt {
+  margin-top: 25px;
 }
-*/
+
 
 #minGuess {
   width: 20px;

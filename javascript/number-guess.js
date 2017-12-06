@@ -79,8 +79,8 @@ function readyPlay() {
   return true;
 }
 
-var userInput = document.querySelector('#guess');
-userInput.addEventListener('input', readyPlay, false);
+// var userInput = document.querySelector('#guess');
+guess.addEventListener('input', readyPlay);
 
 function gameOver(){
   if (description === 'BOOM!'){
@@ -307,7 +307,7 @@ function getMax(){
 
 function updateMin(){
   getMin();
-  userInput.min = userMin;
+  guess.min = userMin;
   document.querySelector('#maxGuess').min = userMin;
   console.log('updateMin() called');
   return userMin;
@@ -315,12 +315,12 @@ function updateMin(){
 
 function updateMax(){
   if (document.selectQuery > getMax()){
-    userInput.max = userMin;
-    userInput.min = userMax;
+    guess.max = userMin;
+    guess.min = userMax;
     console.log('userMin > userMax')
     return userMax;
   } else {
-    userInput.max = userMax;
+    guess.max = userMax;
     console.log('updateMax() called');
   }
   return userMax;
