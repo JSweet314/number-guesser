@@ -24,6 +24,15 @@ form {
   text-align: center;
 }
 
+#game {
+  margin-top: 25px;
+  font-size: 25px;
+  position: relative;
+  top: 70px;
+  left: 0;
+  width: 100%;
+}
+
 h2 {
   color: #404041;
   font-weight: 300;
@@ -101,6 +110,10 @@ p {
 .prompt {
   margin-top: 25px;
   font-size: 25px;
+  position: fixed;
+  top: 122px;
+  left: 0;
+  width: 100%;
 }
 
 #minGuess {
