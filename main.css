@@ -8,6 +8,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  letter-spacing: 2px;
 }
 header {
   background-color: #404041;
@@ -18,8 +19,9 @@ header {
 
 header h1 {
   position: relative;
-  top: 30px;
-  font-size: 40px;
+  top: 18px;
+  font-size: 58px;
+  margin: 0px;
 }
 
 span {
@@ -40,7 +42,7 @@ form {
 
 #submit {
   position: relative;
-  right: 17px;
+  right: 12px;
 }
 h2 {
   color: #404041;
@@ -70,6 +72,7 @@ p {
   font-size: 30px;
   width: 220px;
   height: 45px;
+  margin: 5px; 
 }
 
 .buttonEnabled {
@@ -97,12 +100,19 @@ p {
 
 #clearText {
   position: relative;
-  left: 19px;
+  left: 14px;
 }
 
 #reset {
   width: 485px;
   min-width: 50px;
+}
+
+#reset,
+#clearText,
+#submit,
+#subMinMax {
+  font-weight: 200;
 }
 
 #clearText,
@@ -125,13 +135,15 @@ margin-top: 15px;
 }
 
 #minGuess {
-  width: 50px;
-  height: 16px;
+  text-align: right;
 }
-
+#minGuess,
 #maxGuess {
-  width: 50px;
-  height: 16px;
+  width: 120px;
+  height: 20px;
+  font-size: 25px;
+  font-family: "Open-Sans", sans-serif;
+  font-weight: 100;
 }
 
 #feedBack{

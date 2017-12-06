@@ -5,7 +5,7 @@ var numberOfGuesses = 0;
 var numberOfWins = 0;
 var ans = 0;
 var description = '';
-var winCase = 'You Win!<br />Press Reset to<br /> PLAY AGAIN';
+var winCase = 'BOOM!'
 var guesses = [];
 var userMin = 1;
 var userMax = 100;
@@ -15,14 +15,15 @@ var settings = document.querySelector('#settings');
 
 var guess = document.querySelector('#guess');
 
+
+
 guess.onkeydown = restrictNegatives;
 
 guess.addEventListener('click', selectInput);
 
 guess.addEventListener('input', readyGuess);
 
-function readyGuess() {
-  //function for eventListener 'input' in text box.
+function readyGuess() { //function for eventListener 'input' in guess number box.
   if (!isNaN(this.value)){ 
     toggleButtonOn('#submit');
     toggleButtonOn('#clearText');
@@ -32,7 +33,7 @@ function readyGuess() {
     toggleButtonOff('#clearText')
     console.log('value isNaN');
   }
-  while (this.value == ''){//disables buttons if user deletes entire guess before hitting submit.
+  while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
     invisElement('#const');
@@ -61,31 +62,46 @@ var sub = document.querySelector('#submit');
 
 sub.addEventListener('click', submitGuess);
 
-function submitGuess(event) {
+function submitGuess(event) { // Runs numberGuess() function, toggles off submit and subMinMax buttons, disables min, max, and guess input fields
+  event.preventDefault();
   changeText('#const', 'Your last guess was');
   numberGuesser();
-  event.preventDefault();
   toggleButtonOff('#submit');
   toggleButtonOff('#subMinMax');
-  document.querySelector('#guess').disabled = true;
-  document.querySelector('#minGuess').disabled = true;
-  document.querySelector('#maxGuess').disabled = true;
+  disabledElements(['#minGuess', '#maxGuess', '#guess'], true);
+  document.querySelector('#clearText').focus();
   console.log('..........................');
   console.log('default form settings prevented');
   console.log('submit guess function');
 }
 
-var minChange = document.querySelector('#minGuess');
+var minChange = document.querySelector('#minGuess'); //points to min number input element
 
 minChange.onkeydown = restrictNegatives;
 
+minChange.addEventListener('input', restrictLength);
+
 minChange.addEventListener('click', selectInput);
+
+minChange.addEventListener('blur', function(){
+  if (isNaN(parseInt(minChange.value))){
+    minChange.value = 1;
+  }
+});
 
 var maxChange = document.querySelector('#maxGuess');
 
 maxChange.onkeydown = restrictNegatives;
 
+maxChange.addEventListener('input', restrictLength);
+
 maxChange.addEventListener('click', selectInput);
+
+maxChange.addEventListener('blur', function(){
+  if (isNaN(parseInt(maxChange.value))){
+    maxChange.value = 100;
+  }
+});
 
 var submitMinMax = document.querySelector('#subMinMax');
 
@@ -105,12 +121,12 @@ function submitRange(event){
   }
   guess.max = userMax;
   guess.min = userMin;
-  minChange.disabled = true;
-  maxChange.disabled = true;
+  disabledElements(['#minGuess', '#maxGuess'], true);
   guess.disabled = false;
   document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
   invisElements(['#subMinMax', '#settings']);
   visElements(['#guess', '#submit', '#clearText', '#reset']);
+  document.querySelector('#guess').focus();
   changeAttribute('#guess', 'autocomplete', 'off');
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
   console.log('.............');
@@ -129,8 +145,9 @@ function clearInput(event) {
   document.querySelector('#guess').value = '';
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
-  document.querySelector('#guess').disabled = false;
+  guess.disabled = false;
   invisElements(['#const', '#attempt', '#feedBack']);
+  guess.focus();
   console.log('..........................');
   console.log('clearInput() called')
   console.log('Default form settings prevented');
@@ -149,16 +166,23 @@ function reset(event) {
   clearInput(event);
   changeText('#const', 'Your last guess was');
   document.querySelector('#guess').disabled = true;
-  document.querySelector('#minGuess').disabled = false;
-  document.querySelector('#maxGuess').disabled = false;
+  disabledElements(['#minGuess', '#maxGuess'], false);
   toggleButtonOn('#subMinMax');
+  res.value = 'Reset';
+  submitMinMax.focus();
   console.log('.............');
   console.log('reset() called');
 }
 
 function restrictNegatives(event){// adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well.
-  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13)){
+  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
     return false;
+  }
+}
+
+function restrictLength(){// Restricts input length by testing length against set condition and slicing off an characters entered after preset length is met.
+  if (this.value.length > 7){
+    this.value = this.value.slice(0,7);
   }
 }
 
@@ -237,8 +261,10 @@ function gameOver(){
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
     console.log('gameOver disabled submit and clear buttons');
-    changeText('#const', 'BOOM!');
-    changeHTML('#feedBack', winCase);
+    changeText('#const', '');
+    changeHTML('#feedBack', '');
+    changeText('#attempt', winCase)
+    document.querySelector('#reset').value = 'Confirm Range & Play Again'
     document.querySelector('#guess').disabled = true;
     console.log('Game Over - Play Wins!');
     var settings = document.querySelector('#settings');
@@ -258,10 +284,11 @@ function gameOver(){
       console.log('minus 10 from userMax for win');
     }
     document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
+    res.focus();
     return true;
   } else {
-    return false;
     console.log('Still Playing');
+    return false;
   }
 } 
 
@@ -328,4 +355,10 @@ function visElement(element){
 function invisElement(element){
   console.log('invisElement: ' + element);
   document.querySelector(element).style.display = 'none';
+}
+
+function disabledElements(selectorArray, boolean){
+  for (i=0; i < selectorArray.length; i++){
+    document.querySelector(selectorArray[i]).disabled = boolean;
+  }
 }

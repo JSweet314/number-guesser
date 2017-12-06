@@ -12,11 +12,11 @@
     <p class="prompt">
       Guess a Number Between<br/>
       <label for="minGuess">
-        <input type="number" name="minGuess" id="minGuess" value="1" min="0" width="20px">
+        <input type="number" name="minGuess" id="minGuess" value="1" min="0" width="20px" maxlength="7">
       </label>
       and
       <label for="maxGuess">
-        <input type="number" name="maxGuess" id="maxGuess" value="100" min="0" width="20px">
+        <input type="number" name="maxGuess" id="maxGuess" value="100" min="0" width="20px" maxlength="7">
       </label><br>
       <label for="settings">
         <select name="settings" id="settings">
@@ -26,17 +26,17 @@
         </select>
       </label>
       <br> 
-      <button type="submit" class="roundedButton buttonEnabled" value="Update Min/Max" id="subMinMax">Play!</button>
+      <input type="button" class="roundedButton buttonEnabled" value="Play" id="subMinMax">
     </p>
       <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" disabled> <!--number 'text box' - target min and max atributes to change range. -->
         <p>
           <input type="submit" value="Guess" class="roundedButton buttonDisabled" id="submit" disabled>
-          <button type="submit" value="Clear" class="roundedButton buttonDisabled" id="clearText" disabled>Clear</button>
+          <input type="button" value="Clear" class="roundedButton buttonDisabled" id="clearText" disabled>
         </p>
     <h2 id="const">Your last guess was</h2>
     <p id="attempt">'0'</p>
     <h2 id="feedBack">"Describe Guess Here"</h2><br>
-    <input type="submit" value="Reset" class="roundedButton buttonEnabled hover" id="reset">
+    <input type="button" value="Reset" class="roundedButton buttonEnabled hover" id="reset">
   </form>
   <script type="text/javascript" src="javascript/number-guess.js"></script>
   <!-- <script type="text/javascript" src="ng-unit-test.js"></script> -->
