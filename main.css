@@ -71,9 +71,7 @@ p {
 #guess {
   width: 428px;
   min-width: 300px;
-  height: 2em;
-  position: relative;
-  right: 18px
+  height: 3em;
 }
 
 #clearText {
@@ -99,14 +97,16 @@ p {
 
 .prompt {
   margin-top: 25px;
+  font-size: 25px;
 }
-
 
 #minGuess {
-  width: 20px;
-  padding-left: 10px;
+  width: 50px;
+  height: 16px;
+  /*padding-left: 10px;*/
 }
 #maxGuess {
-  width: 33px;
-  padding-left: 11px;
+  width: 50px;
+  height: 16px;
+  /*padding-left: 11px;*/
 }

@@ -1,4 +1,5 @@
 // PRODUCTION LOG
+// ***Phase 3****
 // Add additional inputs that allow the user to specify the minimum/maximum range.
 // Upon successful win, user’s range is updated:
 //    Every time the user wins a round increase the maximum number by 10.
@@ -22,33 +23,33 @@ var userMax = 100;
 var sub = document.querySelector('#submit');
 var cl = document.querySelector('#clearText');
 var res = document.querySelector('#reset');
+var minChange = document.querySelector('#minGuess');
+var maxChange = document.querySelector('#maxGuess');
+var guess = document.querySelector('#guess');
 
 sub.addEventListener('click', submitGuess);
 cl.addEventListener('click', clearInput);
 res.addEventListener('click', reset);
+guess.addEventListener('input', readyPlay);
 
-var minChange = document.querySelector('#minGuess');
-var maxChange = document.querySelector('#maxGuess');
-var guess = document.querySelector('#guess'); 
 
-minChange.onkeypress = changeWidth;
-maxChange.onkeypress = changeWidth;
+
+// minChange.onkeypress = changeWidth;
+// maxChange.onkeypress = changeWidth;
 
 minChange.onkeydown = restrictNegatives;
 maxChange.onkeydown = restrictNegatives;
 guess.onkeydown = restrictNegatives;
- //adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well. 
- function restrictNegatives(event){
-  if(!((event.keyCode > 95 && event.keyCode < 106)
-    || (event.keyCode > 47 && event.keyCode < 58) 
-    || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13)) {
+
+function restrictNegatives(event){// adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well.
+  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == || event.keyCode == 9 || event.keyCode == 13)){
     return false;
-}
+  }
 }
 
-function changeWidth(event){
-  this.style.width = ((this.value.length + 1) * 9) + 'px';
-}
+// function changeWidth(event){
+//   this.style.width = ((this.value.length + 1) * 9) + 'px';
+// }
 
 function readyPlay() {
   //function for eventListener 'input' in text box.
@@ -80,7 +81,7 @@ function readyPlay() {
 }
 
 // var userInput = document.querySelector('#guess');
-guess.addEventListener('input', readyPlay);
+// guess.addEventListener('input', readyPlay);
 
 function gameOver(){
   if (description === 'BOOM!'){
