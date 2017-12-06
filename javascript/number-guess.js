@@ -13,7 +13,7 @@ var userGuess = 0;
 var numberOfGuesses = 0;
 var ans = 0;
 var description = '';
-var winCase = 'You Win!<br />Click Reset to<br /> play again.';
+var winCase = 'You Win!<br />Press Reset to<br /> PLAY AGAIN';
 var guesses = [];
 var userMin = 1;
 var userMax = 100;
@@ -25,9 +25,9 @@ guess.onkeydown = restrictNegatives;
 
 guess.addEventListener('click', selectInput);
 
-guess.addEventListener('input', readyPlay);
+guess.addEventListener('input', readyGuess);
 
-function readyPlay() {
+function readyGuess() {
   //function for eventListener 'input' in text box.
   if (!isNaN(this.value)){ 
     toggleButtonOn('#submit');
@@ -95,9 +95,9 @@ maxChange.addEventListener('click', selectInput);
 
 var submitMinMax = document.querySelector('#subMinMax');
 
-submitMinMax.addEventListener('click', updateMinMax);
+submitMinMax.addEventListener('click', submitRange);
 
-function updateMinMax(event){
+function submitRange(event){
   event.preventDefault();
   // reset(event);
   userMin = parseInt(minChange.value);
@@ -109,8 +109,13 @@ function updateMinMax(event){
   }
   guess.max = userMax;
   guess.min = userMin;
-  document.querySelector('#guess').disabled = false;
+  minChange.disabled = true;
+  maxChange.disabled = true;
+  guess.disabled = false;
   document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
+  invisElement('#subMinMax');
+  visElements(['#guess', '#submit', '#clearText', '#reset']);
+  changeAttribute('#guess', 'autocomplete', 'off');
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
   console.log('.............');
 }
@@ -129,6 +134,7 @@ function clearInput(event) {
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
   document.querySelector('#guess').disabled = false;
+  invisElements(['#const', '#attempt', '#feedBack']);
   console.log('..........................');
   console.log('clearInput() called')
   console.log('Default form settings prevented');
@@ -142,7 +148,8 @@ res.addEventListener('click', reset);
 function reset(event) {
   numberOfGuesses = 0;
   guesses = [];
-  invisElements(['#attempt', '#feedBack', '#const', '#reset'])
+  invisElements(['#attempt', '#feedBack', '#const', '#reset', '#guess', '#clearText', '#submit'])
+  visElement('#subMinMax');
   clearInput(event);
   changeText('#const', 'Your last guess was');
   document.querySelector('#guess').disabled = true;
@@ -183,7 +190,7 @@ function numberGuesser(){
   } else if (userGuess < ans){
     description = 'That is too low<br>Clear Guess and Try Again'
   } else if (userGuess > ans){
-    description = 'That is too high<br>Clear Guess and Try Again';
+    description = 'That is too high<br>Press Clear and Guess Again';
   }
   repeatedGuess();
   describeGuess();
@@ -208,10 +215,10 @@ function outOfRange(){
 function repeatedGuess(){
   for (i=0; i < guesses.length; i++){
     if (userGuess == guesses[i]){
-      description = 'You already guessed that...';
+      description = 'You already guessed that...<br>Press Clear and Guess Again';
     }
   }
-  guesses.push(guess);
+  guesses.push(userGuess);
 }
 
 function describeGuess(){
@@ -289,7 +296,7 @@ function changeHTML(selector, text){
 function visElements(elArray){
   var test = 'vis Elements: ';
   for (i=0; i < elArray.length; i++){
-    document.querySelector(elArray[i]).style.visibility = 'visible';
+    document.querySelector(elArray[i]).style.display = 'inline-block';
     test += elArray[i] + ' ';
   }
   console.log(test);
@@ -298,7 +305,7 @@ function visElements(elArray){
 function invisElements(elArray){
   var test = 'invis Elements: ';
   for (i=0; i < elArray.length; i++){
-    document.querySelector(elArray[i]).style.visibility = 'hidden';
+    document.querySelector(elArray[i]).style.display = 'none';
     test += elArray[i] + ' ';
   }
   console.log(test);
@@ -306,10 +313,10 @@ function invisElements(elArray){
 
 function visElement(element){
   console.log('visElement: ' + element);
-  document.querySelector(element).style.visibility = 'visible';
+  document.querySelector(element).style.display = 'inline-block';
 }
 
 function invisElement(element){
   console.log('invisElement: ' + element);
-  document.querySelector(element).style.visibility = 'hidden';
+  document.querySelector(element).style.display = 'none';
 }

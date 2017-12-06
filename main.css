@@ -84,11 +84,14 @@ p {
   min-width: 300px;
 }
 
+#clearText,
+#guess,
+#submit,
 #attempt,
 #feedBack,
 #const,
 #reset {
-  visibility: hidden;
+  display: none;
 }
 
 #subMinMax{
