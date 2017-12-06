@@ -10,7 +10,23 @@
   </header>
   <section class="feature">
     <form action="" id="game" >
-      <p class="prompt">Guess a Number Between<br/><label for="minGuess" contenteditable="true"></label><input type="number" name="minGuess" id="minGuess" value="1" min="0" width="20px"> and <label for="maxGuess"></label><input type="number" name="maxGuess" id="maxGuess" value="100" min="0" width="20px"><br/>
+      <p class="prompt">
+        Guess a Number Between<br/>
+        <label for="minGuess">
+          <input type="number" name="minGuess" id="minGuess" value="1" min="0" width="20px">
+        </label>
+        and
+        <label for="maxGuess">
+          <input type="number" name="maxGuess" id="maxGuess" value="100" min="0" width="20px">
+        </label><br>
+        <label for="settings">
+          <select name="settings" id="settings">
+            <option value="none">Settings</option>
+            <option value="add10">After Win: +10 to Max</option>
+            <option value="minus10">After Win: -10 from Max</option>
+          </select>
+        </label>
+        <br> 
         <button type="submit" class="roundedButton buttonEnabled" value="Update Min/Max" id="subMinMax">Play!</button>
       </p>
       <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" disabled> <!--number 'text box' - target min and max atributes to change range. -->

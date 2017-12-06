@@ -1,16 +1,8 @@
-// PRODUCTION LOG
-// ***Phase 3****
-// Add additional inputs that allow the user to specify the minimum/maximum range.
-// Upon successful win, user’s range is updated:
-//    Every time the user wins a round increase the maximum number by 10.
-//    Every time the user wins a round decrease the minimum number by 10.
-//    Appropriate UI is incorporated such that user understands what is happening.
-// (Pro-tip: You’ll need to adjust the input fields to accept the new minimum and maximum numbers.)
-
 var min = 1;
 var max = 100; 
 var userGuess = 0;
 var numberOfGuesses = 0;
+var numberOfWins = 0;
 var ans = 0;
 var description = '';
 var winCase = 'You Win!<br />Press Reset to<br /> PLAY AGAIN';
@@ -18,6 +10,8 @@ var guesses = [];
 var userMin = 1;
 var userMax = 100;
 var description = "Your Guess is Out of Bounds";
+
+var settings = document.querySelector('#settings');
 
 var guess = document.querySelector('#guess');
 
@@ -113,7 +107,7 @@ function submitRange(event){
   maxChange.disabled = true;
   guess.disabled = false;
   document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
-  invisElement('#subMinMax');
+  invisElements(['#subMinMax', '#settings']);
   visElements(['#guess', '#submit', '#clearText', '#reset']);
   changeAttribute('#guess', 'autocomplete', 'off');
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
@@ -149,7 +143,7 @@ function reset(event) {
   numberOfGuesses = 0;
   guesses = [];
   invisElements(['#attempt', '#feedBack', '#const', '#reset', '#guess', '#clearText', '#submit'])
-  visElement('#subMinMax');
+  visElements(['#subMinMax', '#settings']);
   clearInput(event);
   changeText('#const', 'Your last guess was');
   document.querySelector('#guess').disabled = true;
@@ -165,10 +159,6 @@ function restrictNegatives(event){// adds 'onkeydown' event listener and referen
     return false;
   }
 }
-
-// function changeWidth(event){
-//   this.style.width = ((this.value.length + 1) * 9) + 'px';
-// }
 
 function getGuess(){
   userGuess = parseInt(document.querySelector('#guess').value);
@@ -249,6 +239,23 @@ function gameOver(){
     changeHTML('#feedBack', winCase);
     document.querySelector('#guess').disabled = true;
     console.log('Game Over - Play Wins!');
+    var settings = document.querySelector('#settings');
+    if (settings.value === 'add10'){
+      guess.max += 10;
+      maxChange.value = userMax + 10;
+      minChange.value = userMin;
+      console.log('added 10 to userMax for win');
+    } else if(settings.value === 'minus10'){
+      guess.max -= 10;
+      maxChange.value = userMax - 10;
+      minChange.value = userMin;
+      if (maxChange.value < userMin){
+        alert('You beat the game! Congratulations!');
+        maxChange.value = 100;
+      }
+      console.log('minus 10 from userMax for win');
+    }
+    document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
     return true;
   } else {
     return false;
