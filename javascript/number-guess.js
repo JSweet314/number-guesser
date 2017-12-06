@@ -100,6 +100,8 @@ function submitRange(event){
     var ph = userMax;
     userMax = userMin;
     userMin = ph;
+    maxChange.value = userMax;
+    minChange.value = userMin;
   }
   guess.max = userMax;
   guess.min = userMin;
