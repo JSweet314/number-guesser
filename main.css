@@ -10,6 +10,21 @@ body {
   width: 100%;
   letter-spacing: 2px;
 }
+
+form {
+  text-align: center;
+  position: relative;
+  margin-top: 0;
+  top: 0px;
+  font-size: 25px;
+}
+
+h2 {
+  color: #404041;
+  font-weight: 300;
+  margin: 10px 0; 
+}
+
 header {
   background-color: #404041;
   color: #ed458b;
@@ -24,30 +39,14 @@ header h1 {
   margin: 0px;
 }
 
+select {
+  position: relative;
+  top: 10px;
+}
+
 span {
   font-weight: 300;
   color: #E6E7E8;
-}
-
-form {
-  text-align: center;
-}
-
-#game {
-  position: relative;
-  margin-top: 0;
-  top: 0px;
-  font-size: 25px;
-}
-
-#submit {
-  position: relative;
-  right: 12px;
-}
-h2 {
-  color: #404041;
-  font-weight: 300;
-  margin: 10px 0; 
 }
 
 p {
@@ -60,19 +59,16 @@ p {
   font-weight: 100;
 }
 
-#attempt {
-  color: #eb008b;
-  font-size: 170px;
-  position: relative;
-  bottom: 30px;
+.btnField {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 144px;
 }
 
-.roundedButton{
-  border-radius: 50px;
-  font-size: 30px;
-  width: 220px;
-  height: 45px;
-  margin: 5px; 
+.buttonDisabled {
+  background-color: #d0d2d3;
+  color: #ffffff;
 }
 
 .buttonEnabled {
@@ -85,27 +81,26 @@ p {
   color: #ffffff;
 }
 
-.buttonDisabled {
-  background-color: #d0d2d3;
-  color: #ffffff;
+.prompt {
+  font-size: 25px;
+  padding: 15px 0px;
 }
 
-#guess {
-  width: 475px;
-  min-width: 300px;
-  height: 3em;
-  position: relative;
-  bottom: 20px;
+.roundedButton{
+  border-radius: 50px;
+  font-size: 30px;
+  width: 220px;
+  height: 45px;
+  margin: 5px; 
 }
 
-#clearText {
-  position: relative;
-  left: 14px;
-}
-
-#reset {
-  width: 485px;
-  min-width: 50px;
+#minGuess,
+#maxGuess {
+  width: 120px;
+  height: 20px;
+  font-size: 25px;
+  font-family: "Open-Sans", sans-serif;
+  font-weight: 100;
 }
 
 #reset,
@@ -125,28 +120,71 @@ p {
   display: none;
 }
 
-#subMinMax{
-margin-top: 15px;
+#attempt {
+  color: #eb008b;
+  font-size: 170px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 280px;
 }
 
-.prompt {
-  font-size: 25px;
-  padding: 15px 0px;
+#clearText {
+  position: relative;
+  left: 14px;
+}
+
+#const {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 246px;
+}
+
+#feedBack{
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 461px;
+}
+
+#guess {
+  width: 475px;
+  min-width: 300px;
+  height: 3em;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 91px;
+  text-align: center;
 }
 
 #minGuess {
   text-align: right;
 }
-#minGuess,
-#maxGuess {
-  width: 120px;
-  height: 20px;
-  font-size: 25px;
-  font-family: "Open-Sans", sans-serif;
-  font-weight: 100;
+
+#reset {
+  width: 485px;
+  min-width: 50px;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 600px;
 }
 
-#feedBack{
+#submit {
   position: relative;
-  bottom: 50px;
+  right: 12px;
+}
+
+#subMinMax{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 160px;
 }

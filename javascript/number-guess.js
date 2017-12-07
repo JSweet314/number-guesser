@@ -22,15 +22,15 @@ guess.addEventListener('click', selectInput);
 guess.addEventListener('input', readyGuess);
 
 function readyGuess() { //function for eventListener 'input' in guess number box.
-  if (!isNaN(this.value)){ 
-    toggleButtonOn('#submit');
-    toggleButtonOn('#clearText');
-    changeAttribute('#game', 'class', 'hover');
-  } else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
-    toggleButtonOff('#submit')
-    toggleButtonOff('#clearText')
-    console.log('value isNaN');
-  }
+if (!isNaN(this.value)){ 
+  toggleButtonOn('#submit');
+  toggleButtonOn('#clearText');
+  changeAttribute('#game', 'class', 'hover');
+} else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
+  toggleButtonOff('#submit')
+  toggleButtonOff('#clearText')
+  console.log('value isNaN');
+}
   while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
@@ -180,9 +180,9 @@ function reset(event) {
 }
 
 function restrictNegatives(event){// adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well.
-  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
-    return false;
-  }
+if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
+  return false;
+}
 }
 
 function restrictLength(){// Restricts input length by testing length against set condition and slicing off an characters entered after preset length is met.
