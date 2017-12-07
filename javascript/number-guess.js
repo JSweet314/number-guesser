@@ -12,16 +12,39 @@ var userMax = 100;
 var description = "Your Guess is Out of Bounds";
 
 var settings = document.querySelector('#settings');
-
 var guess = document.querySelector('#guess');
+var sub = document.querySelector('#submit');
+var maxChange = document.querySelector('#maxGuess');
+var minChange = document.querySelector('#minGuess');
+var submitMinMax = document.querySelector('#subMinMax');
+var cl = document.querySelector('#clearText');
+var res = document.querySelector('#reset');
 
+res.addEventListener('click', reset);
+cl.addEventListener('click', clearInput);
 guess.onkeydown = restrictNegatives;
-
 guess.addEventListener('click', selectInput);
-
 guess.addEventListener('input', readyGuess);
+sub.addEventListener('click', submitGuess);
+minChange.onkeydown = restrictNegatives;
+minChange.addEventListener('input', restrictLength);
+minChange.addEventListener('click', selectInput);
+maxChange.onkeydown = restrictNegatives;
+maxChange.addEventListener('input', restrictLength);
+maxChange.addEventListener('click', selectInput);
+submitMinMax.addEventListener('click', submitRange);
+minChange.addEventListener('blur', function(){
+  if (isNaN(parseInt(minChange.value))){
+    minChange.value = 1;
+  }
+});
+maxChange.addEventListener('blur', function(){
+  if (isNaN(parseInt(maxChange.value))){
+    maxChange.value = 100;
+  }
+});
 
-function readyGuess() { //function for eventListener 'input' in guess number box.
+function readyGuess() {
 if (!isNaN(this.value)){ 
   toggleButtonOn('#submit');
   toggleButtonOn('#clearText');
@@ -31,7 +54,7 @@ if (!isNaN(this.value)){
   toggleButtonOff('#clearText')
   console.log('value isNaN');
 }
-  while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
+  while (this.value == '') {
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
     invisElement('#const');
@@ -56,11 +79,7 @@ if (!isNaN(this.value)){
   return true;
 }
 
-var sub = document.querySelector('#submit');
-
-sub.addEventListener('click', submitGuess);
-
-function submitGuess(event) { // Runs numberGuess() function, toggles off submit and subMinMax buttons, disables min, max, and guess input fields
+function submitGuess(event) {
   event.preventDefault();
   changeText('#const', 'Your last guess was');
   numberGuesser();
@@ -73,39 +92,7 @@ function submitGuess(event) { // Runs numberGuess() function, toggles off submit
   console.log('submit guess function');
 }
 
-var minChange = document.querySelector('#minGuess'); //points to min number input element
-
-minChange.onkeydown = restrictNegatives;
-
-minChange.addEventListener('input', restrictLength);
-
-minChange.addEventListener('click', selectInput);
-
-minChange.addEventListener('blur', function(){
-  if (isNaN(parseInt(minChange.value))){
-    minChange.value = 1;
-  }
-});
-
-var maxChange = document.querySelector('#maxGuess');
-
-maxChange.onkeydown = restrictNegatives;
-
-maxChange.addEventListener('input', restrictLength);
-
-maxChange.addEventListener('click', selectInput);
-
-maxChange.addEventListener('blur', function(){
-  if (isNaN(parseInt(maxChange.value))){
-    maxChange.value = 100;
-  }
-});
-
-var submitMinMax = document.querySelector('#subMinMax');
-
-submitMinMax.addEventListener('click', submitRange);
-
-function submitRange(event){
+function submitRange(event) {
   event.preventDefault();
   // reset(event);
   userMin = parseInt(minChange.value);
@@ -126,18 +113,13 @@ function submitRange(event){
   visElements(['#guess', '#submit', '#clearText', '#reset']);
   document.querySelector('#guess').focus();
   changeAttribute('#guess', 'autocomplete', 'off');
-  removeClass('#game', 'hover');
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
   console.log('.............');
 }
 
-function selectInput(){
+function selectInput() {
   this.select();
 }
-
-var cl = document.querySelector('#clearText');
-
-cl.addEventListener('click', clearInput);
 
 function clearInput(event) {
   event.preventDefault();
@@ -153,10 +135,6 @@ function clearInput(event) {
   console.log('Default form settings prevented');
   console.log('text box set to \'\'');
 }
-
-var res = document.querySelector('#reset');
-
-res.addEventListener('click', reset);
 
 function reset(event) {
   numberOfGuesses = 0;
@@ -179,25 +157,25 @@ function reset(event) {
   console.log('reset() called');
 }
 
-function restrictNegatives(event){// adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well.
-if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
-  return false;
-}
+function restrictNegatives(event) {
+  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
+    return false;
+  }
 }
 
-function restrictLength(){// Restricts input length by testing length against set condition and slicing off an characters entered after preset length is met.
+function restrictLength() {
   if (this.value.length > 7){
     this.value = this.value.slice(0,7);
   }
 }
 
-function getGuess(){
+function getGuess() {
   userGuess = parseInt(document.querySelector('#guess').value);
   console.log('obtained guess from user');
   return userGuess;
 }
 
-function numberGuesser(){
+function numberGuesser() {
   ans = generateNumber();
   getGuess();
   numberOfGuesses += 1;
@@ -228,7 +206,7 @@ function generateNumber() {
   }
 }
 
-function outOfRange(){
+function outOfRange() {
   description = "You must submit a number between " + document.querySelector('#guess').min + " and " + document.querySelector('#guess').max + ".";
   alert('Did we not explain the rules? Clear your guess and see the prompt inside the text box.');
 }
