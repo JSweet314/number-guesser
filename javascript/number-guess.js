@@ -126,6 +126,7 @@ function submitRange(event){
   visElements(['#guess', '#submit', '#clearText', '#reset']);
   document.querySelector('#guess').focus();
   changeAttribute('#guess', 'autocomplete', 'off');
+  removeClass('#game', 'hover');
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
   console.log('.............');
 }
