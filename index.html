@@ -8,7 +8,7 @@
   <header>
     <h1>Number <span>Guesser</span></h1>
   </header>
-  <form action="" id="game" >
+  <form action="" id="game" class="hover" >
     <p class="prompt">
       Guess a Number Between<br/>
       <label for="minGuess">
@@ -26,16 +26,16 @@
         </select>
       </label>
       <br> 
+      <span class="score">Score: 0</span><br>
       <label for="subMinMax">
         <input type="button" class="roundedButton buttonEnabled" value="Play" id="subMinMax">
       </label><br>
-      <span class="score">Score: </span><br>
-      <span class="best">Best: </span>
+      <span class="best">Best: 0</span>
     </p>
     <label>
       <input type="number" name="guess" id="guess" placeholder="Guess a number between 1 and 100" min="1" max="100" disabled>
     </label>
-    <p>
+    <p class="btnField">
       <label for="submit">
         <input type="submit" value="Guess" class="roundedButton buttonDisabled" id="submit" disabled>
       </label>
@@ -50,7 +50,7 @@
       <input type="button" value="Reset" class="roundedButton buttonEnabled hover" id="reset">
     </label>
     <p class="explainScore">
-      Your score is equal to the number of guesses it takes for you to find the random number. Lowest Score Wins!
+      Score = Number of Guesses.<br>Lower the Better!
     </p>
   </form>
   <script type="text/javascript" src="javascript/number-guess.js"></script>

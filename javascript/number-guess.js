@@ -10,10 +10,15 @@ var guesses = [];
 var userMin = 1;
 var userMax = 100;
 var description = "Your Guess is Out of Bounds";
+var scores = [];
 
 var settings = document.querySelector('#settings');
 
 var guess = document.querySelector('#guess');
+
+var score = document.querySelector('.score');
+
+var best = document.querySelector('.best');
 
 guess.onkeydown = restrictNegatives;
 
@@ -22,15 +27,15 @@ guess.addEventListener('click', selectInput);
 guess.addEventListener('input', readyGuess);
 
 function readyGuess() { //function for eventListener 'input' in guess number box.
-  if (!isNaN(this.value)){ 
-    toggleButtonOn('#submit');
-    toggleButtonOn('#clearText');
-    changeAttribute('#game', 'class', 'hover');
-  } else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
-    toggleButtonOff('#submit')
-    toggleButtonOff('#clearText')
-    console.log('value isNaN');
-  }
+if (!isNaN(this.value)){ 
+  toggleButtonOn('#submit');
+  toggleButtonOn('#clearText');
+  changeAttribute('#game', 'class', 'hover');
+} else if (isNaN(this.value) || ((this.value > this.max) || (this.value < this.min))){
+  toggleButtonOff('#submit')
+  toggleButtonOff('#clearText')
+  console.log('value isNaN');
+}
   while (this.value == ''){ //disables buttons if user deletes entire guess before hitting submit.
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
@@ -124,8 +129,7 @@ function submitRange(event){
   document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
   invisElements(['#subMinMax', '#settings', '.explainScore']);
   visElements(['#guess', '#submit', '#clearText', '#reset']);
-  document.querySelector('#guess').focus();
-  changeAttribute('#guess', 'autocomplete', 'off');
+  guess.focus();
   console.log('Range Updated ' + guess.min + ' - ' + guess.max);
   console.log('.............');
 }
@@ -157,8 +161,6 @@ var res = document.querySelector('#reset');
 res.addEventListener('click', reset);
 
 function reset(event) {
-  numberOfGuesses = 0;
-  guesses = [];
   invisElements(['#attempt', '#feedBack', '#const', '#reset', '#guess', '#clearText', '#submit']);
   visElements(['#subMinMax', '#settings']);
   clearInput(event);
@@ -168,16 +170,23 @@ function reset(event) {
   disabledElements(['#minGuess', '#maxGuess'], false);
   toggleButtonOn('#subMinMax');
   res.value = 'Reset';
+  if (settings.value === 'none'){
+    minChange.value = 1;
+    maxChange.value = 100;
+  }
   submitMinMax.focus();
   visElement('.explainScore');
+  numberOfGuesses = 0;
+  guesses = [];
+  score.innerText = 'Score: 0';
   console.log('.............');
   console.log('reset() called');
 }
 
 function restrictNegatives(event){// adds 'onkeydown' event listener and references keycode to restrict which keyboard keys are alowed. effectively removes ability for user to input negative numbers. to be applied to min and max inputs as well.
-  if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
-    return false;
-  }
+if(!((event.keyCode > 95 && event.keyCode < 106) || (event.keyCode > 35 && event.keyCode < 41) || (event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 32)){
+  return false;
+}
 }
 
 function restrictLength(){// Restricts input length by testing length against set condition and slicing off an characters entered after preset length is met.
@@ -211,6 +220,7 @@ function numberGuesser(){
   repeatedGuess();
   describeGuess();
   gameOver();
+  score.innerText = 'Score: ' + numberOfGuesses
   return description;
 }
 
@@ -258,6 +268,21 @@ function presentGuess() {
 
 function gameOver(){
   if (description === 'BOOM!'){
+    if (scores.length === 0){
+      console.log('scores = []')
+      console.log('new high score is ' + numberOfGuesses);
+      changeText('.best', 'Best: ' + numberOfGuesses);
+    }
+    scores.push(numberOfGuesses)
+    for (i = 0; i < scores.length; i++){
+      if (numberOfGuesses < scores[i]){
+        console.log('!!!new high score - ' + numberOfGuesses)
+        best.innerText = 'Best: ' + numberOfGuesses;
+      }
+    }
+    if (numberOfGuesses == 1){
+      alert('YOU ARE A GOD AMONG MEN!');
+    }
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
     console.log('gameOver - disabled submit and clear buttons');
@@ -278,10 +303,12 @@ function gameOver(){
       maxChange.value = userMax - 10;
       minChange.value = userMin;
       if (maxChange.value < userMin){
-        alert('You beat the game! Congratulations!');
+        alert('You can go no lower!!! Congratulations!');
         maxChange.value = 100;
       }
       console.log('minus 10 from userMax for win');
+    } else if (settings.value === 'none'){
+      res.value = 'Play Again';
     }
     guess.placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
     res.focus();
@@ -290,6 +317,7 @@ function gameOver(){
     console.log('Still Playing');
     return false;
   }
+
 } 
 
 function changeAttribute(selector, attribute, value) { //function to change element attributes easier
