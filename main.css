@@ -10,6 +10,7 @@ body {
   width: 100%;
   letter-spacing: 2px;
 }
+
 header {
   background-color: #404041;
   color: #ed458b;
@@ -44,6 +45,7 @@ form {
   position: relative;
   right: 12px;
 }
+
 h2 {
   color: #404041;
   font-weight: 300;
@@ -58,6 +60,10 @@ p {
   padding: 0;
   margin: 0 auto;
   font-weight: 100;
+}
+
+p.explainScore {
+  width: 485px;
 }
 
 #attempt {

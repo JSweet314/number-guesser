@@ -36,7 +36,7 @@ function readyGuess() { //function for eventListener 'input' in guess number box
     toggleButtonOff('#clearText');
     invisElement('#const');
     changeHTML('#const', 'Your last guess was');
-    document.querySelector('#guess').disabled = false;
+    disabledElements(['#guess'], false);
     console.log('value isNaN');
     break;  
   }
@@ -73,7 +73,7 @@ function submitGuess(event) { // Runs numberGuess() function, toggles off submit
   console.log('submit guess function');
 }
 
-var minChange = document.querySelector('#minGuess'); //points to min number input element
+var minChange = document.querySelector('#minGuess');
 
 minChange.onkeydown = restrictNegatives;
 
@@ -107,7 +107,6 @@ submitMinMax.addEventListener('click', submitRange);
 
 function submitRange(event){
   event.preventDefault();
-  // reset(event);
   userMin = parseInt(minChange.value);
   userMax = parseInt(maxChange.value);
   if (userMin > userMax){
@@ -122,7 +121,7 @@ function submitRange(event){
   disabledElements(['#minGuess', '#maxGuess'], true);
   guess.disabled = false;
   document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
-  invisElements(['#subMinMax', '#settings']);
+  invisElements(['#subMinMax', '#settings', '.explainScore']);
   visElements(['#guess', '#submit', '#clearText', '#reset']);
   document.querySelector('#guess').focus();
   changeAttribute('#guess', 'autocomplete', 'off');
@@ -144,7 +143,6 @@ function clearInput(event) {
   toggleButtonOff('#clearText');
   toggleButtonOff('#submit');
   disabledElements(['#guess'], false);
-  // guess.disabled = false;  see line above
   invisElements(['#const', '#attempt', '#feedBack']);
   guess.focus();
   console.log('..........................');
@@ -170,6 +168,7 @@ function reset(event) {
   toggleButtonOn('#subMinMax');
   res.value = 'Reset';
   submitMinMax.focus();
+  visElement('.explainScore');
   console.log('.............');
   console.log('reset() called');
 }
@@ -260,12 +259,12 @@ function gameOver(){
   if (description === 'BOOM!'){
     toggleButtonOff('#submit');
     toggleButtonOff('#clearText');
-    console.log('gameOver disabled submit and clear buttons');
+    console.log('gameOver - disabled submit and clear buttons');
     changeText('#const', '');
     changeHTML('#feedBack', '');
     changeText('#attempt', winCase)
-    document.querySelector('#reset').value = 'Confirm Range & Play Again'
-    document.querySelector('#guess').disabled = true;
+    res.value = 'Confirm Range & Play Again';
+    disabledElements(['#guess'], true);
     console.log('Game Over - Play Wins!');
     var settings = document.querySelector('#settings');
     if (settings.value === 'add10'){
@@ -283,7 +282,7 @@ function gameOver(){
       }
       console.log('minus 10 from userMax for win');
     }
-    document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
+    guess.placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
     res.focus();
     return true;
   } else {
