@@ -67,6 +67,7 @@ function submitGuess(event) { // Runs numberGuess() function, toggles off submit
   toggleButtonOff('#submit');
   toggleButtonOff('#subMinMax');
   disabledElements(['#minGuess', '#maxGuess', '#guess'], true);
+  visElements(['.score', '.best']);
   document.querySelector('#clearText').focus();
   console.log('..........................');
   console.log('default form settings prevented');

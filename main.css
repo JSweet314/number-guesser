@@ -29,6 +29,23 @@ span {
   font-weight: 300;
   color: #E6E7E8;
 }
+span.best,
+span.score {
+  color: #000000;
+  display: none;
+}
+
+.score {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.best {
+  position: absolute;
+  top: 40px;
+  right: 70px;
+}
 
 form {
   text-align: center;
@@ -132,7 +149,7 @@ p.explainScore {
 }
 
 #subMinMax{
-margin-top: 15px;
+  margin-top: 15px;
 }
 
 .prompt {
