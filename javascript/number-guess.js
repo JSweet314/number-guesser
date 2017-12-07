@@ -170,6 +170,10 @@ function reset(event) {
   disabledElements(['#minGuess', '#maxGuess'], false);
   toggleButtonOn('#subMinMax');
   res.value = 'Reset';
+  if (settings.value === 'none'){
+    minChange.value = 1;
+    maxChange.value = 100;
+  }
   submitMinMax.focus();
   console.log('.............');
   console.log('reset() called');
@@ -279,10 +283,12 @@ function gameOver(){
       maxChange.value = userMax - 10;
       minChange.value = userMin;
       if (maxChange.value < userMin){
-        alert('You beat the game! Congratulations!');
+        alert('You can go no lower!!! Congratulations!');
         maxChange.value = 100;
       }
       console.log('minus 10 from userMax for win');
+    } else if (settings.value === 'none'){
+      res.value = 'Play Again';
     }
     document.querySelector('#guess').placeholder = 'Guess a number between ' + guess.min + ' and ' + guess.max;
     res.focus();
